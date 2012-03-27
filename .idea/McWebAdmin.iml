@@ -13,6 +13,7 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Python 2.7.2 (D:/prog/Envs/mcwebadmin/Scripts/python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jQuery-1.7.1" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="templateLanguage" value="Django" />
