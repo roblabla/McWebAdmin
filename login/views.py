@@ -1,22 +1,28 @@
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.template import RequestContext
+from django.template.base import Template
+
 def index(request):
-    state = "Please log in below..."
-    username = password = ''
-    if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state = "You're successfully logged in!"
-            else:
-                state = "Your account is not active, please contact the site admin."
+def validate(request):
+    state = "notpost"
+username = password = ''
+if request.POST:
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username,password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            state="yes"
         else:
-            state = "Your username and/or password were incorrect."
-
-    return render_to_response('login.html',{'state':state, 'username': username},context_instance=RequestContext(request))
+            state = "not active"
+    else:
+        state = "no"
+thepage = RequestContext(request, {
+    'state': state,
+    'username': username,
+    })
+t = Template("login.html")
+return HttpResponse(t.render(thepage))
