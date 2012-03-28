@@ -7,4 +7,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^login/', include('login.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'dashboard/', include('dashboard.urls')),
 )

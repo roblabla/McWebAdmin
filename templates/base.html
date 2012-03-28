@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
-<head>
+  <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="UTF-8" />
     <meta name="description" content="" />
@@ -8,35 +8,133 @@
     <meta name="author" content="" />
 
     <!--========= STYLES =========-->
-    <link rel="stylesheet" href="{{STATIC_URL}}css/reset.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}css/grid.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}css/uniform.default.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}css/chosen.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}plugins/jqueryui/all/themes/base/jquery.ui.all.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}plugins/alerts/resources/css/jquery.toastmessage.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/grid.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/uniform.default.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/chosen.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/jqueryui/all/themes/base/jquery.ui.all.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/alerts/resources/css/jquery.toastmessage.css" />
 
-    <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}css/config.css" />
-    <!--[if gte IE 8]><link rel="stylesheet" href="{{ STATIC_URL}}css/ie8.css" /><![endif]-->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fancybox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/datatables/media/css/demo_table_jui.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/lightbox/js/lightbox/themes/default/jquery.lightbox.css" type="text/css"/>
+
+
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/config.css" />
+    <!--[if gte IE 8]><link rel="stylesheet" href="{{ STATIC_URL }}css/ie8.css" /><![endif]-->
 
     <!--============ JQUERY =============-->
-    <script src="{{STATIC_URL}}js/jquery.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}js/jquery.login.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}js/jquery.uniform.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}js/chosen.jquery.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}js/jquery.placeholder.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}plugins/jqueryui/all/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}plugins/alerts/javascript/jquery.toastmessage.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.uniform.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/chosen.jquery.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.placeholder.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}plugins/jqueryui/all/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}plugins/gvchart/jquery.gvChart-1.0.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.timers.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}plugins/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="{{ STATIC_URL }}plugins/alerts/javascript/jquery.toastmessage.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}plugins/lightbox/js/lightbox/jquery.lightbox.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jsonapi.js" type="text/javascript"></script>
 
-    <script src="{{STATIC_URL}}js/head_scripts.js" type="text/javascript"></script>
+
+    <script src="{{ STATIC_URL }}js/head_scripts.js" type="text/javascript"></script>
+
     <!--=== ENABLE HTML5 TAGS FOR IE ===-->
-    <!--[if IE]><script src="{{STATIC_URL}}js/html5.js"></script><![endif]-->
+    <!--[if IE]><script src="{{ STATIC_URL }}js/html5.js"></script><![endif]-->
 
-    <title>{% block title %}Login{% endblock %} </title>
+    <title>{% block title %}Minecraft Control Panel{% endblock %}</title>
     {% block head %}{% endblock %}
-</head>
-{% block body %}{% endblock %}
+  </head>{% block body %}
+  <body>
+    <section class="top_panel">
+      <div class="panel_elements">
+        <ul class="panel_item">
+          <!--
+          <li><a href="#">Private messages [14]</a></li>
+          <li><a href="#">System Log [52]</a></li>
+          <li><a href="#">Inactive entries [6]</a></li>
+          <li><a href="#">Comments approval [89]</a></li>
+          <li><a href="#">New users [27]</a></li>
+          <li><a href="#">Settings</a></li>
+          -->
+          <li class="right"><a href="/login">Logout [{{ username }}]<span class="logout"></span></a></li>
+          <!--<li class="right"><a>Welcome $Username</a></li>-->
+        </ul>
+      </div>
+    </section>
+    <section id="main_wrapper">
+      <section class="wrapper_layout">
+        <section class="container">
+          <section class="container_12">
+            <section id="page_content" class="page_content">
+              <section class="header grid_12">
+                <a class="logo" href="/"></a>
+                <div class="clear"></div>
+              </section>
+              <div>
+                <ul id="menu">
+                  <li><a href="/">Dashboard<span class="icon1"></span></a></li>
+                  <li><a href="/admin/">Admin<span class="icon9"></span></a></li>
+                  <li><a href="?q=plugininfo">Plugins<span class="icon5"></span></a></li>
+                  <li><a href="#">File Browser<span class="icon3"></span></a></li>
+                  <li><a href="#">Server Health<span class="icon6"></span></a></li>
+                  <li><a href="?q=essentials">Users<span class="icon7"></span></a></li>
+                  <li><a href="?q=commands">Commands<span class="icon8"></span></a></li>
+                  <li><a href="#">Settings<span class="icon2"></span></a></li>
+                  <!--
+                  <li><a href="#">Plugins<span class="icon6"></span></a>
+                  <ul>
+                    <li><a href="calendar.html">Advanced calendar</a></li>
+                    <li><a href="file_explorer.html">File explorer</a></li>
+                    <li><a href="charts.html">Charts</a></li>
+                    <li><a href="tables.html">Data Tables</a></li>
+                    <li><a href="lightbox.html">LightBox Evolution</a></li>
+                    <li><a href="alerts.html">Alert messages</a></li>
+                    <li><a href="dialogs.html">Fallr - Dialogs, modal boxes…</a></li>
+                  </ul>
+                  </li>
+                    <li><a href="#">Example forms<span class="icon2"></span></a>
+                      <ul>
+                        <li><a href="forms.html">Basic forms</a></li>
+                        <li><a href="forms_validation.html">Forms validation</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#">Icons<span class="icon7"></span></a>
+                      <ul>
+                        <li><a href="glyphish_icons.html">Glyphish icons</a></li>
+                        <li><a href="fugue_icons.html">Fugue icons</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="gallery.html">Image gallery<span class="icon3"></span></a></li>
+                    <li><a href="grid.html">Grid<span class="icon8"></span></a></li>
+                    <li><a href="typography.html">Typography<span class="icon10"></span></a></li>
+                  -->
+                </ul><!--End of #menu-->
+              </div>
+              <div class="clear"></div>
 
-
+                <!--
+                  3 - file manager
+                  4 - Calendar
+                  5 - Folder
+                  6 - Life Line
+                  7 - Dot
+                  8 - Window / Form
+                  9 - Data Grid
+                -->
+              {% block contents %}{% endblock %}
+            </section><!-- end of #page_content -->
+          </section><!-- end of #container_12 -->
+        </section><!-- end of #container -->
+      </section><!-- End of .wrapper_layout -->
+    </section><!-- End of #main_wrapper -->
+    <script src="js/ui_calls.js" type="text/javascript"></script>
+    <script src="js/scripts.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery.minecraftfunctions.js"></script>
+  </body>{% endblock %}
 </html>

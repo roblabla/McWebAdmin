@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block contents %}
+  <div class="clear"></div>
+
+  <div class="position_search">
+    <div class="positioner">
+
+    </div>
+  </div>
+
+  <div class="grid_8">
+    <div class="box">
+      <h2>
+        Server Controls
+        <span class="l"></span><span class="r"></span>
+      </h2>
+      <div class="block">
+        <div class="block_in">
+          <a href="javascript:;" id="startmcserver" class="call_button icon"><span class="m_icon a171"></span><span class="m_text">Start</span></a>
+          <a href="javascript:;" id="stopmcserver" class="call_button icon"><span class="m_icon a126"></span><span class="m_text">Stop</span></a>
+          <a href="javascript:;" id="restartserver" class="call_button icon"><span class="m_icon a2"></span><span class="m_text">Restart</span></a>
+          <a href="javascript:;" id="chunkster" class="call_button icon"><span class="m_icon a157"></span><span class="m_text">Chunkster</span></a>
+          <a href="javascript:;" id="reloadserver" class="call_button icon"><span class="m_icon a1"></span><span class="m_text">Reload</span></a>
+          <a href="javascript:;" id="killserver" class="call_button icon"><span class="m_icon a196"></span><span class="m_text">Kill</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_4">
+    <div class="box">
+      <h2>
+        Server Details
+        <span class="l"></span><span class="r"></span>
+      </h2>
+      <div class="block">
+        <div class="block_in">
+          Server Version: ###.##<br>
+          Outside IP: 50.49.250.108<br>
+          Server Port: 25565<br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_6">
+    <div class="box">
+      <h2>
+        Server Status
+        <span class="l"></span><span class="r"></span>
+      </h2>
+      <div class="block">
+        <div class="block_in">
+          <div id="serverstatus">Loading Server Status…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_6">
+    <div class="box">
+      <h2>
+        Resource Usage
+        <span class="l"></span><span class="r"></span>
+      </h2>
+      <div class="block">
+
+        <div class="form_row">
+          <div class="grid_3">CPU Usage: <span id="cpuusage"></span></div>
+          <div class="grid_9">
+            <div class="block_content">
+              <div id="progressbarcpu"></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form_row">
+          <div class="grid_3">RAM Usage: <span id="ramusage"></span></div>
+          <div class="grid_9">
+            <div class="block_content">
+              <div id="progressbarram"></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_12">
+    <div class="box">
+      <h2>
+        Server Log
+        <span class="l"></span><span class="r"></span>
+      </h2>
+      <div class="block">
+        <div class="block_in">
+          The log time is EST (GMT -5)
+          <pre id="logfile">Loading Logfile…</pre>
+        </div>
+        <input type="text" id="thetext" placeholder="Console Command" />
+      </div>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  <script type=text/javascript>
+    //{literal}
+    $("#thetext").bind("keydown", function(e){
+      if(e.keyCode == '13'){
+        $.post("mcutils.php", {action: "exec", thetext: $("#thetext").val()});
+        $("#thetext").val('');
+      }
+    });
+    $(function() {
+      $("#progressbarram").progressbar({
+        value: 0
+      });
+      $("#progressbarcpu").progressbar({
+        value: 0
+      });
+    });
+
+
+    $(function() {
+      $("#logfile").everyTime(1000,function() {
+        $.post('mcutils.php', {action: 'logtail'},function(data) {
+          $("#logfile").html(data);
+        });
+      });
+
+      $("#serverstatus").everyTime(1000,function() {
+        $.post('minequerytest.php', function(data) {
+          $("#serverstatus").html(data);
+        });
+      });
+
+      var config = {
+        borderRadius: 10,
+        width: 300,
+        height: 20,
+        imageUrl: 'images/h_fg8.png',
+
+      };
+
+      $(document).everyTime(2000,function() {
+        $.post('mcutils.php', { action: 'testcpu' } , function(data) {
+          $("#progressbarcpu").progressbar({
+            value: parseInt(data/2)
+          });
+          $("#cpuusage").html(parseInt(data/2) + "%");
+        });
+        $.post('mcutils.php', {action: 'testram'} , function(data) {
+          $("#progressbarram").progressbar({
+            value: parseInt(data)
+          });
+          $("#ramusage").html(data + "%");
+        });
+      });
+
+      /* $(document).ready(function() {
+       $().toastmessage('showToast', {
+       text : 'Minecraft Version X.XXX Ready to be installed.<br><br>[Install Now]',
+       sticky : true,
+       position : 'top-right',
+       type : 'notice'
+       });
+
+       $().toastmessage('showToast', {
+       text : 'XX Plugin(s) to be updated.<br><br>[Update Now]',
+       sticky : true,
+       position : 'top-right',
+       type : 'notice'
+       });
+       });*/
+    });
+    //{/literal}
+  </script>
+{% endblock %}
