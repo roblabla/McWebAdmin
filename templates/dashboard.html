@@ -126,6 +126,7 @@
 
 
     $(function() {
+      //TODO: change this to comet subscribe.
       $("#logfile").everyTime(1000,function() {
         $.post('mcutils.php', {action: 'logtail'},function(data) {
           $("#logfile").html(data);
@@ -147,17 +148,17 @@
       };
 
       $(document).everyTime(2000,function() {
-        $.post('mcutils.php', { action: 'testcpu' } , function(data) {
+        $.post('mcutils', { action: 'getcpu' } , function(data) {
           $("#progressbarcpu").progressbar({
-            value: parseInt(data/2)
+            value: parseInt(data)
           });
-          $("#cpuusage").html(parseInt(data/2) + "%");
+          $("#cpuusage").html(parseInt(data) + "%");
         });
-        $.post('mcutils.php', {action: 'testram'} , function(data) {
+        $.post('mcutils', {action: 'getram'} , function(data) {
           $("#progressbarram").progressbar({
             value: parseInt(data)
           });
-          $("#ramusage").html(data + "%");
+          $("#ramusage").html(parseInt(data)+ "%");
         });
       });
 

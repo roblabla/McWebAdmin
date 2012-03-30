@@ -6,4 +6,5 @@ admin.autodiscover()
 
 urlpatterns = patterns('dashboard.views',
     url(r'^$', 'index'),
+    url(r'^mcutils','mcutils')
 )
